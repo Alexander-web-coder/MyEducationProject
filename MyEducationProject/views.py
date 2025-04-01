@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core.cache import cache
-from . import terms_work
+from MyEducationProject import terms_work
 
 
 def index(request):

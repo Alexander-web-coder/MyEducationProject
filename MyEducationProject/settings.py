@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'proj_maths.urls'
+ROOT_URLCONF = 'MyEducationProject.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'proj_maths.wsgi.application'
+WSGI_APPLICATION = 'MyEducationProject.wsgi.application'
 
 
 # Database
