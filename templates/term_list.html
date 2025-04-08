@@ -20,11 +20,11 @@
             </tr>
           </thead>
           <tbody>
-            {% for cnt, term, definition in terms %}
+            {% for id, m_term, description in terms %}
             <tr>
-                <td class="py-3">{{ cnt }}</td>
-                <td class="py-3">{{ term }}</td>
-                <td class="py-3">{{ definition }}</td>
+                <td class="py-3">{{ id }}</td>
+                <td class="py-3">{{ m_term }}</td>
+                <td class="py-3">{{ description }}</td>
             </tr>
             {% endfor %}
           </tbody>

@@ -12,7 +12,7 @@
 {% block content %}
 <div class="container px-4 py-5" id="project-contents">
     <h2 class="pb-2 border-bottom">Что есть в этом проекте</h2>
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
         <div class="col d-flex">
             <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
                 <svg class="bi" width="1em" height="1em">
@@ -52,6 +52,20 @@
                 <p>Сколько терминов уже есть? Какой они длины?</p>
                 <a href="/stats" class="btn btn-primary">
                     Изучить
+                </a>
+            </div>
+        </div>
+        <div class="col d-flex">
+            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <svg class="bi" width="1em" height="1em">
+                    <use xlink:href="#cpu-fill"></use>
+                </svg>
+            </div>
+            <div>
+                <h3 class="fs-2">Проверь себя!</h3>
+                <p>Знаешь ли ты термины?</p>
+                <a href="/testing" class="btn btn-primary">
+                    Тестирование
                 </a>
             </div>
         </div>

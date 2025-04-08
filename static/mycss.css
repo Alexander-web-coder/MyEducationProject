@@ -1,0 +1,29 @@
+/* Сбрасываем фон для body */
+body {
+    background-color: initial !important;
+}
+
+/* Стили для кнопок */
+.btn.btn-custom {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0;
+    color: white;
+}
+
+.btn.btn-custom:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn.btn-outline-custom {
+    color: #28a745;
+    border-color: #28a745;
+    border-radius: 0;
+}
+
+.btn.btn-outline-custom:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}

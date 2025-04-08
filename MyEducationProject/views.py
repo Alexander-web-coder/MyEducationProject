@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.cache import cache
 from MyEducationProject import terms_work
+from MyEducationProject.terms_work import get_terms_for_table_from_db, get_test_from_db
 
 
 def index(request):
@@ -8,7 +9,8 @@ def index(request):
 
 
 def terms_list(request):
-    terms = terms_work.get_terms_for_table()
+    #terms = terms_work.get_terms_for_table()
+    terms = get_terms_for_table_from_db()
     return render(request, "term_list.html", context={"terms": terms})
 
 
@@ -21,9 +23,9 @@ def send_term(request):
         cache.clear()
         user_name = request.POST.get("name")
         new_term = request.POST.get("new_term", "")
-        new_definition = request.POST.get("new_definition", "").replace(";", ",")
+        new_description = request.POST.get("new_description", "").replace(";", ",")
         context = {"user": user_name}
-        if len(new_definition) == 0:
+        if len(new_description) == 0:
             context["success"] = False
             context["comment"] = "Описание должно быть не пустым"
         elif len(new_term) == 0:
@@ -32,7 +34,8 @@ def send_term(request):
         else:
             context["success"] = True
             context["comment"] = "Ваш термин принят"
-            terms_work.write_term(new_term, new_definition)
+            #terms_work.write_term(new_term, new_definition)
+            terms_work.write_term_to_db(new_term, new_description, user_name)
         if context["success"]:
             context["success-title"] = ""
         return render(request, "term_request.html", context)
@@ -41,5 +44,9 @@ def send_term(request):
 
 
 def show_stats(request):
-    stats = terms_work.get_terms_stats()
+    stats = terms_work.get_terms_stats_from_db()
     return render(request, "stats.html", stats)
+
+def testing(request):
+    question = get_test_from_db()
+    return render(request, "testing.html", question)
