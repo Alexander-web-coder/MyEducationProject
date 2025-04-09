@@ -22,5 +22,7 @@ urlpatterns = [
     path('add-term', views.add_term),
     path('send-term', views.send_term),
     path('stats', views.show_stats),
-    path('testing', views.testing)
+    # path('testing', views.testing),
+    path('music_test', views.music_test),
+    path('check_answer', views.check_test, name='check_answer')
 ]

@@ -2,10 +2,11 @@ from cgi import maxlen
 
 from .models import MusicTerm
 #from .views import terms_list
+import random
 
 
 def get_terms_for_table_from_db():
-    return [[t.id, t.m_term, t.description] for t in Term.objects.all()]
+    return [[t.id, t.m_term, t.description] for t in MusicTerm.objects.all()]
 
 
 
@@ -88,3 +89,39 @@ def get_test_from_db(): #TODO
 
 def check_test(): #TODO
     pass
+
+
+def generate_test_question():
+    """Сгенерировать вопрос для тестирования"""
+    valid_terms = MusicTerm.objects.exclude(description__isnull=True).exclude(description__exact='')
+    if not valid_terms.exists():
+        return None
+
+    correct_term = random.choice(list(valid_terms))
+    question = correct_term.description
+
+    wrong_terms = MusicTerm.objects.exclude(id=correct_term.id).order_by('?')[:2]
+    terms = list(wrong_terms) + [correct_term]
+    random.shuffle(terms)
+
+    return {
+        'question': question,
+        'terms': terms,
+        'correct_term': correct_term
+    }
+
+
+def check_answer(user_answer_id, correct_term_id):
+    """Проверить ответ пользователя"""
+    try:
+        is_correct = int(user_answer_id) == int(correct_term_id)
+        correct_term = MusicTerm.objects.get(id=correct_term_id)
+        selected_term = MusicTerm.objects.get(id=user_answer_id) if user_answer_id else None
+
+        return {
+            'is_correct': is_correct,
+            'correct_term': correct_term,
+            'selected_term': selected_term
+        }
+    except (ValueError, MusicTerm.DoesNotExist):
+        return None
