@@ -11,7 +11,14 @@ body {
     color: white;
 }
 
-.btn.btn-custom:hover {
+.btn.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0;
+    color: white;
+}
+
+.btn.btn-primary:hover {
     background-color: #218838;
     border-color: #1e7e34;
 }
