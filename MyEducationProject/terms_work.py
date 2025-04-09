@@ -1,6 +1,6 @@
 from cgi import maxlen
 
-from .models import Term
+from .models import MusicTerm
 #from .views import terms_list
 
 
@@ -11,7 +11,7 @@ def get_terms_for_table_from_db():
 
 
 def write_term_to_db(new_term, new_description, user_name):
-    term = Term(m_term=new_term, description=new_description, author=user_name)
+    term = MusicTerm(m_term=new_term, description=new_description, author=user_name)
     term.save()
 
 # def get_terms_for_table():
@@ -53,12 +53,12 @@ def get_terms_stats_from_db():
     #         elif "db" in added_by:
     #             db_terms += 1
 
-    db_terms = Term.objects.filter(author=None).count()
+    db_terms = MusicTerm.objects.filter(author=None).count()
     #user_terms = Term.objects.filter(author=(not None)).count()
-    terms_all = Term.objects.count()
+    terms_all = MusicTerm.objects.count()
     terms_added = terms_all - db_terms
     # full_text = " ".join(Term.objects.all().)
-    full_text_list = Term.objects.values_list("description") # получен список из кортежей со значениями поля description
+    full_text_list = MusicTerm.objects.values_list("description") # получен список из кортежей со значениями поля description
     for _ in full_text_list:
         full_text += (_[0] + " ")
 
@@ -82,5 +82,9 @@ def get_terms_stats_from_db():
         "words_min": words_min
     }
     return stats
-def get_test_from_db():
+
+def get_test_from_db(): #TODO
+    pass
+
+def check_test(): #TODO
     pass
