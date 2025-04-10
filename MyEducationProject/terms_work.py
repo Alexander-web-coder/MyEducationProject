@@ -99,7 +99,10 @@ def generate_test_question():
     num_of_rbutton = 3 #кол-во вариантов ответа
     all_terms = [[t.id, t.m_term, t.description] for t in MusicTerm.objects.all()]
     # random.shuffle(all_terms)
-    terms = random.choices(all_terms, k=num_of_rbutton)
+
+    # terms = random.choices(all_terms, k=num_of_rbutton)
+
+    terms = random.sample(all_terms, num_of_rbutton)
     correct_term = random.choice(terms)
     question = correct_term[2]
     id_correct_term = correct_term[0]

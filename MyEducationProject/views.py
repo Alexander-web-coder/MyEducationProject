@@ -91,7 +91,7 @@ def check_test(request):
     return render(request, 'testing.html', {
         'question': request.session['question'],
         'terms': request.session['terms'],
-        # 'correct_term': request.session['correct_term'],
+        'correct_term': request.session['correct_term'],
         'result': result
     })
 

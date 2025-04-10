@@ -34,3 +34,9 @@ body {
     border-color: #28a745;
     color: white;
 }
+
+input[type="radio"]{
+        width: 1.2em;
+        height: 1.2em;
+        border: 3px solid;
+}

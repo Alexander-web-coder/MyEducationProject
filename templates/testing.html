@@ -14,26 +14,34 @@
 <div class="container px-4 py-5" id="testing-form">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="post" action="{% url 'check_answer' %}" id="term-test-form">
+            <form method="post" action="check_answer" id="term-test-form">
 <!--                {% csrf_token %}-->
 <!--                <input type="hidden" name="correct_term" value="{{ correct_term.id }}">-->
 
                 <div class="mb-4 p-3
                 bg-light rounded">
-                    <div class="mb-4 p-3 {% if result == 'correct' %}
+                    <div class="mb-4 p-3
+                        {% if result == 'correct' %}
                         bg-success bg-opacity-50
                         {% elif result == 'incorrect' %}
                         bg-danger bg-opacity-50
                         {% else %}
                         bg-light
                         {% endif %} rounded">
-                        <h3 class="mb-3">Что означает термин:</h3>
-                        <h4 class="mb-4">{{ question }}</h4>
+                        {% if result == 'unknown'%}
+                            <h4 class="mb-3">Выберите правильный ответ.</h4>
+                            <h4 class="mb-4">{{ question }}:</h4>
+                        {% else%}
+                            <h4 class="mb-3">Правильный ответ:</h4>
+                            <h4 class="mb-4">{{ question }} это {{ correct_term.1}}</h4>
+                        {% endif %}
                     </div>
                     {% for term in terms %}
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answer" id="term{{ forloop.counter }}" value="{{ term.0 }}" required>
-                        <label class="form-check-label" for="term{{ forloop.counter }}">
+                        <input class="form-check-input" type="radio"
+                                name="answer" id="term{{ forloop.counter }}" value="{{ term.0 }}"
+                            {% if result != 'unknown' %}disabled{% endif %} required>
+                        <label class="form-check-label ms-4" for="term{{ forloop.counter }}">
                             {{ term.1 }}
                         </label>
                     </div>
@@ -41,8 +49,21 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-5">
-                    <button type="submit" class="btn btn-custom btn-lg px-4 me-md-2">
+                    <button type="submit" class="btn btn-lg px-4 me-md-2
+                        {% if result == 'correct' %}
+                        btn-success disabled
+                        {% elif result == 'incorrect' %}
+                        btn-danger disabled
+                        {% else %}
+                        btn-custom
+                        {% endif %}">
+                        {% if result == 'correct' %}
+                        Верно!
+                        {% elif result == 'incorrect' %}
+                        Не верно
+                        {% else %}
                         Проверить ответ
+                        {% endif %}
                     </button>
                     <a href="/music_test" class="btn btn-outline-secondary btn-lg px-4">
                         Ещё раз!
