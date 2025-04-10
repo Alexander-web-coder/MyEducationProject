@@ -1,4 +1,5 @@
 from cgi import maxlen
+from os.path import split
 
 from .models import MusicTerm
 #from .views import terms_list
@@ -59,15 +60,23 @@ def get_terms_stats_from_db():
     terms_all = MusicTerm.objects.count()
     terms_added = terms_all - db_terms
     # full_text = " ".join(Term.objects.all().)
-    full_text_list = MusicTerm.objects.values_list("description") # получен список из кортежей со значениями поля description
-    for _ in full_text_list:
-        full_text += (_[0] + " ")
+    # full_text_list = MusicTerm.objects.values_list("description") # получен список из кортежей со значениями поля description
+    # for _ in full_text_list:
+    #     full_text += (_[0] + " ")
+
+    full_text_list = [t.description for t in MusicTerm.objects.all()]
+
+    full_text = " ".join(full_text_list)
+    # чистим ненужные символы. Список не полный, но достаточный.
+    for junk_char in ",().;:":
+        full_text = full_text.replace(junk_char, ' ')
+
 
     words = full_text.split()
     words_count = len(words)
-    words_max = len(max(words, key = len))
-    words_min = len(min(words, key = len))
-    words_avg = len("".join(words))/words_count
+    words_max = len((max(full_text_list, key = lambda x: len(x.split()))).split())
+    words_min = len((min(full_text_list, key = lambda x: len(x.split()))).split())
+    words_avg = round(words_count/len(full_text_list), 1)
 
 
     stats = {
