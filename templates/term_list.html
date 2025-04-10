@@ -1,17 +1,22 @@
 {% extends "base_page.html" %}
+{% load static %}
 
 {% block page-title %}
 Список музыкальных терминов
 {% endblock %}
 
 {% block page-lead %}
-Содержимое для тетсирования:
+Содержимое для тестирования:
 {% endblock %}
+
+<!--{% block head %}-->
+<!--<link rel="stylesheet" href="{% static 'css/terms_table.css' %}">-->
+<!--{% endblock %}-->
 
 {% block content %}
 <div class="container px-4 py-5" id="terms-table">
-    <div class="table-responsive">
-        <table class="table table-striped table-sm">
+    <div class="table-responsive terms-table-container">
+        <table class="table terms-table terms-table-striped table-sm">
           <thead>
             <tr>
               <th scope="col" class="py-3">id</th>

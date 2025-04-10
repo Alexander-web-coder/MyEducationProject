@@ -40,3 +40,40 @@ input[type="radio"]{
         height: 1.2em;
         border: 3px solid;
 }
+/* Стили для таблицы музыкальных терминов */
+#terms-table {
+    padding: 20px;
+}
+
+.terms-table-container {
+    border: 2px solid #28a745;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
+}
+
+.terms-table thead tr {
+    background-color: #e8f5e9;
+}
+
+.terms-table th {
+    font-weight: 600;
+    color: #2e7d32;
+    border-top: none;
+}
+
+.terms-table td {
+    vertical-align: middle;
+}
+
+.terms-table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+.terms-table-striped tbody tr:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.terms-table .py-3 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
