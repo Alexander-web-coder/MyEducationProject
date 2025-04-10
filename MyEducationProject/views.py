@@ -62,17 +62,20 @@ def music_test(request):
 
     test_data = generate_test_question()
 
-    if not test_data:
-        return render(request, 'testing.html', {'error': 'Нет доступных терминов для тестирования'})
+    # if not test_data:
+    #     return render(request, 'testing.html', {'error': 'Нет доступных терминов для тестирования'})
 
+    # сохраняем данные, которые отправляем на страницу
     request.session['question'] = test_data['question']
-    request.session['terms'] = list([t.m_term, t.id] for t in test_data['terms'])
-    request.session['correct_term'] = test_data['correct_term'].description
+    request.session['terms'] = test_data['terms']
+    request.session['correct_term'] = test_data['correct_term']
+    request.session['id_correct_term'] = test_data['id_correct_term']
 
     return render(request, 'testing.html', {
         'question': request.session['question'],
         'terms': request.session['terms'],
-        'correct_term': request.session['correct_term']
+        'result': 'unknown'
+        # 'correct_term': request.session['correct_term']
     })
 
 
@@ -82,13 +85,13 @@ def check_test(request):
     if request.method == 'POST':
         result = check_answer(
             user_answer_id=request.POST.get('answer'),
-            correct_term_id=request.POST.get('correct_term')
+            correct_term_id=request.session['id_correct_term']
         )
 
     return render(request, 'testing.html', {
         'question': request.session['question'],
         'terms': request.session['terms'],
-        'correct_term': request.session['correct_term'],
+        # 'correct_term': request.session['correct_term'],
         'result': result
     })
 

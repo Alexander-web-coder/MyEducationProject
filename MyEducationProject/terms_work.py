@@ -93,35 +93,46 @@ def check_test(): #TODO
 
 def generate_test_question():
     """Сгенерировать вопрос для тестирования"""
-    valid_terms = MusicTerm.objects.exclude(description__isnull=True).exclude(description__exact='')
-    if not valid_terms.exists():
-        return None
+    # valid_terms = MusicTerm.objects.exclude(description__isnull=True).exclude(description__exact='')
+    # if not valid_terms.exists():
+    #     return None
+    num_of_rbutton = 3 #кол-во вариантов ответа
+    all_terms = [[t.id, t.m_term, t.description] for t in MusicTerm.objects.all()]
+    # random.shuffle(all_terms)
+    terms = random.choices(all_terms, k=num_of_rbutton)
+    correct_term = random.choice(terms)
+    question = correct_term[2]
+    id_correct_term = correct_term[0]
 
-    correct_term = random.choice(list(valid_terms))
-    question = correct_term.description
-
-    wrong_terms = MusicTerm.objects.exclude(id=correct_term.id).order_by('?')[:2]
-    terms = list(wrong_terms) + [correct_term]
-    random.shuffle(terms)
+    # wrong_terms = MusicTerm.objects.exclude(id=correct_term.id).order_by('?')[:2]
+    # terms = list(wrong_terms) + [correct_term]
+    # random.shuffle(terms)
 
     return {
         'question': question,
         'terms': terms,
-        'correct_term': correct_term
+        'correct_term': correct_term,
+        'id_correct_term': id_correct_term
     }
 
 
 def check_answer(user_answer_id, correct_term_id):
     """Проверить ответ пользователя"""
-    try:
-        is_correct = int(user_answer_id) == int(correct_term_id)
-        correct_term = MusicTerm.objects.get(id=correct_term_id)
-        selected_term = MusicTerm.objects.get(id=user_answer_id) if user_answer_id else None
 
-        return {
-            'is_correct': is_correct,
-            'correct_term': correct_term,
-            'selected_term': selected_term
-        }
-    except (ValueError, MusicTerm.DoesNotExist):
-        return None
+    if int(user_answer_id) == int(correct_term_id):
+        return 'correct'
+    else:
+        return 'incorrect'
+    # try:
+    #
+    #     is_correct = int(user_answer_id) == int(correct_term_id)
+    #     # correct_term = MusicTerm.objects.get(id=correct_term_id)
+    #     # selected_term = MusicTerm.objects.get(id=user_answer_id) if user_answer_id else None
+    #
+    #     return {
+    #         'is_correct': is_correct,
+    #         'correct_term': correct_term,
+    #         'selected_term': selected_term
+    #     }
+    # except (ValueError, MusicTerm.DoesNotExist):
+    #     return None
