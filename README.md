@@ -8,8 +8,12 @@
 2. Перейти в папку репозитория при помощи `cd`
 3. `pip install -r requirements.txt`
 4. `python manage.py runserver --insecure`
+5. `pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
 
 
 
 
-Перед сдачей проекта обязательно выполните `pylint proj_maths` и устраните все ошибки. Кроме того, обратите внимание на требования к проекту в LMS.
+
+
+
+
