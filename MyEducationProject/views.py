@@ -1,13 +1,15 @@
-from lib2to3.fixes.fix_input import context
+#from lib2to3.fixes.fix_input import context
 
 from django.shortcuts import render
 from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 from MyEducationProject import terms_work
-from MyEducationProject.terms_work import get_terms_for_table_from_db, get_test_from_db, generate_test_question
+from MyEducationProject.terms_work import (get_terms_for_table_from_db,
+                                             generate_test_question)
 from MyEducationProject.terms_work import check_answer
 from .models import MusicTerm
-from django.forms.models import model_to_dict
-from django.contrib.auth.decorators import login_required
+
+
 
 
 
@@ -63,8 +65,7 @@ def music_test(request):
 
     test_data = generate_test_question()
 
-    # if not test_data:
-    #     return render(request, 'testing.html', {'error': 'Нет доступных терминов для тестирования'})
+
 
     # сохраняем данные, которые отправляем на страницу
     request.session['question'] = test_data['question']

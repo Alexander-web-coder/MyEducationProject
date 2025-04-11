@@ -17,7 +17,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv_path = os.path.join(BASE_DIR, ".env")
-load_dotenv() 
+
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production

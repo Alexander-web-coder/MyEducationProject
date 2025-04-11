@@ -1,9 +1,9 @@
-from cgi import maxlen
-from os.path import split
-
+# from cgi import maxlen
+# from os.path import split
+import random
 from .models import MusicTerm
 #from .views import terms_list
-import random
+
 
 
 def get_terms_for_table_from_db():
@@ -56,13 +56,10 @@ def get_terms_stats_from_db():
     #             db_terms += 1
 
     db_terms = MusicTerm.objects.filter(author=None).count()
-    #user_terms = Term.objects.filter(author=(not None)).count()
+
     terms_all = MusicTerm.objects.count()
     terms_added = terms_all - db_terms
-    # full_text = " ".join(Term.objects.all().)
-    # full_text_list = MusicTerm.objects.values_list("description") # получен список из кортежей со значениями поля description
-    # for _ in full_text_list:
-    #     full_text += (_[0] + " ")
+
 
     full_text_list = [t.description for t in MusicTerm.objects.all()]
 
@@ -93,11 +90,7 @@ def get_terms_stats_from_db():
     }
     return stats
 
-def get_test_from_db(): #TODO
-    pass
 
-def check_test(): #TODO
-    pass
 
 
 def generate_test_question():
@@ -105,7 +98,8 @@ def generate_test_question():
     # valid_terms = MusicTerm.objects.exclude(description__isnull=True).exclude(description__exact='')
     # if not valid_terms.exists():
     #     return None
-    num_of_rbutton = 3 #кол-во вариантов ответа
+    # кол-во вариантов ответа
+    num_of_rbutton = 3
     all_terms = [[t.id, t.m_term, t.description] for t in MusicTerm.objects.all()]
     # random.shuffle(all_terms)
 
