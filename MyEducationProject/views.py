@@ -1,3 +1,4 @@
+'''Вызов страниц сайта'''
 #from lib2to3.fixes.fix_input import context
 
 from django.shortcuts import render
@@ -7,27 +8,30 @@ from MyEducationProject import terms_work
 from MyEducationProject.terms_work import (get_terms_for_table_from_db,
                                              generate_test_question)
 from MyEducationProject.terms_work import check_answer
-from .models import MusicTerm
+# from .models import MusicTerm
 
 
 
 
 
 def index(request):
+    '''Вызываем начальную страницу'''
     return render(request, "index.html")
 
 
 def terms_list(request):
-    #terms = terms_work.get_terms_for_table()
+    '''Выводим страницу с таблицей   терминов'''
     terms = get_terms_for_table_from_db()
     return render(request, "term_list.html", context={"terms": terms})
 
 @login_required
 def add_term(request):
+    '''Добавляем новый термин, показываем страницу'''
     return render(request, "term_add.html")
 
-# @login_required
+
 def send_term(request):
+    '''Показываем страницу с подтверждением добавления термина'''
     if request.method == "POST":
         cache.clear()
         user_name = request.POST.get("name")
@@ -47,25 +51,23 @@ def send_term(request):
             terms_work.write_term_to_db(new_term, new_description, user_name)
         if context["success"]:
             context["success-title"] = ""
-        return render(request, "term_request.html", context)
+        # return render(request, "term_request.html", context)
     else:
         add_term(request)
+    return render(request, "term_request.html", context)
 
 
 def show_stats(request):
+    '''Показываем страницу с статистикой'''
     stats = terms_work.get_terms_stats_from_db()
     return render(request, "stats.html", stats)
 
-# def testing(request):
-#     question = get_test_from_db()
-#     return render(request, "testing.html", question)
+
 
 def music_test(request):
-    """Страница тестирования"""
-
+    """Выводим страницу тестирования.
+    В сессии пользователя сохраняем данные"""
     test_data = generate_test_question()
-
-
 
     # сохраняем данные, которые отправляем на страницу
     request.session['question'] = test_data['question']
@@ -82,7 +84,9 @@ def music_test(request):
 
 
 def check_test(request):
-    """Проверка ответа на тест"""
+    """Проверка ответа на тест.
+    Меняем внешний вид в зависимости от ответа.
+    Проверка идет по сохраненным данным в сессии"""
 
     if request.method == 'POST':
         result = check_answer(
@@ -96,18 +100,3 @@ def check_test(request):
         'correct_term': request.session['correct_term'],
         'result': result
     })
-
-    #     if not result:
-    #         return redirect('music_test')
-    #
-    #     return render(request, 'testing.html', {
-    #         'question': result['correct_term'].description,
-    #         'terms': MusicTerm.objects.filter(id__in=[
-    #             request.POST.get('answer'),
-    #             request.POST.get('correct_term')
-    #         ]),
-    #         'correct_term': result['correct_term'],
-    #         'result': 'correct' if result['is_correct'] else 'incorrect'
-    #     })
-    #
-    # return redirect('music_test')
