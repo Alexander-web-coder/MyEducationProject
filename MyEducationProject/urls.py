@@ -23,7 +23,7 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view()),
     path('terms-list', views.terms_list),
     path('add-term', views.add_term),
-    # path('send-term', views.send_term),
+    path('send-term', views.send_term),
     path('stats', views.show_stats),
     # path('testing', views.testing),
     path('music_test', views.music_test),
