@@ -9,15 +9,18 @@ from .models import MusicTerm
 
 def get_terms_for_table_from_db():
     '''Получаем список с полями из базы'''
-    return [[t.id, t.m_term, t.description] for t in MusicTerm.objects.all()]
+    return [[t.id, t.m_term, t.description, t.author] for t in MusicTerm.objects.all()]
 
 
 
 
 def write_term_to_db(new_term, new_description, user_name):
     '''Заносим в базу термины'''
+    if MusicTerm.objects.filter(m_term__iexact=new_term).exists():
+        return False
     term = MusicTerm(m_term=new_term, description=new_description, author=user_name)
     term.save()
+    return True
 
 
 

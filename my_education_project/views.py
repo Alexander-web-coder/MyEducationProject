@@ -34,7 +34,7 @@ def send_term(request):
     '''Показываем страницу с подтверждением добавления термина'''
     if request.method == "POST":
         cache.clear()
-        user_name = request.POST.get("name")
+        user_name = request.user.username
         new_term = request.POST.get("new_term", "")
         new_description = request.POST.get("new_description", "").replace(";", ",")
         context = {"user": user_name}
@@ -44,14 +44,14 @@ def send_term(request):
         elif len(new_term) == 0:
             context["success"] = False
             context["comment"] = "Термин должен быть не пустым"
-        else:
+        elif terms_work.write_term_to_db(new_term, new_description, user_name):
             context["success"] = True
             context["comment"] = "Ваш термин принят"
-            #terms_work.write_term(new_term, new_definition)
-            terms_work.write_term_to_db(new_term, new_description, user_name)
+        else:
+            context["success"] = False
+            context["comment"] = "Термин уже существует"
         if context["success"]:
             context["success-title"] = ""
-        # return render(request, "term_request.html", context)
     else:
         add_term(request)
     return render(request, "term_request.html", context)
