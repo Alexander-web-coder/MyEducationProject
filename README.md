@@ -8,7 +8,8 @@
 2. Перейти в папку репозитория при помощи `cd`
 3. `pip install -r requirements.txt`
 4. `python manage.py runserver --insecure`
-5. `pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
+5.  Пользователь root, пароль "1111"
+6.`pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
 
 
 
