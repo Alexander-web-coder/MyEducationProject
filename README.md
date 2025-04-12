@@ -9,7 +9,8 @@
 3. `pip install -r requirements.txt`
 4. `python manage.py runserver --insecure`
 5.  Пользователь root, пароль "1111"
-6.`pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
+6. Перед запуском линтера выполнить `pip install pylint-django`
+7.`pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
 
 
 
