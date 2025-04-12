@@ -52,7 +52,7 @@ def get_terms_stats_from_db():
 
     full_text = " ".join(full_text_list)
     # чистим ненужные символы. Список не полный, но достаточный.
-    for junk_char in ",().;:":
+    for junk_char in ',().;:\'\"':
         full_text = full_text.replace(junk_char, ' ')
 
 
