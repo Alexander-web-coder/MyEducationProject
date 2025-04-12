@@ -1,6 +1,12 @@
 # Музыкальные термины
 Проект для 2-го семестра курса "Программирование на Python"
-Тема: Разработка Web-приложения на Django
+Разработка Web-приложения на Django
+Тема: Проверка знания музыкальных терминов
+
+## Для информации
+
+В базу с терминами (автор) добавляется логин текущего пользователя, который добавил термин.
+Поэтому убраны поля с вводом имени пользователя и емэйла. т.к. при необходимости их можно получить по логину.
 
 ## Как использовать
 
@@ -10,7 +16,7 @@
 4. `python manage.py runserver --insecure`
 5.  Пользователь root, пароль "1111"
 6. Перед запуском линтера выполнить `pip install pylint-django`
-7.`pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
+7. `pylint my_education_project --load-plugins=pylint_django --django-settings-module=my_education_project.settings`
 
 
 
