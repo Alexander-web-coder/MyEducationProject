@@ -2,8 +2,11 @@
 #from lib2to3.fixes.fix_input import context
 
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from my_education_project import terms_work
 from my_education_project.terms_work import (get_terms_for_table_from_db,
                                              generate_test_question)
@@ -100,3 +103,15 @@ def check_test(request):
         'correct_term': request.session['correct_term'],
         'result': result
     })
+
+def register(request):
+    '''Добавление нового пользователя'''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})

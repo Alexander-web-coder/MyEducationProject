@@ -21,6 +21,7 @@ from my_education_project import views
 urlpatterns = [
     path('', views.index),
     path("accounts/login/", auth_views.LoginView.as_view()),
+    path("accounts/register/", views.register, name='register'),
     path('terms-list', views.terms_list),
     path('add-term', views.add_term),
     path('send-term', views.send_term),
